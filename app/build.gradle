@@ -1,0 +1,46 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply from: 'https://gist.githubusercontent.com/stefanhoth/37f86c8e41d648cbd2c8/raw/49ca13d028885cae89f7da949f11069365aefeec/idea-gradle-sources.gradle'
+
+android {
+    compileSdkVersion 21
+    buildToolsVersion "21.1.2"
+
+    defaultConfig {
+        applicationId "com.yoavst.whatismyip"
+        minSdkVersion 10
+        targetSdkVersion 21
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+        debug.java.srcDirs += 'src/debug/kotlin'
+        release.java.srcDirs += 'src/release/kotlin'
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:appcompat-v7:21.0.3'
+    compile 'com.android.support:cardview-v7:21.0.3'
+
+    compile "org.jetbrains.kotlin:kotlin-android-sdk-annotations:$kotlin_version"
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compile 'com.jakewharton:kotterknife:0.1.0-SNAPSHOT'
+    compile 'com.github.yoavst:androidKotlin:v1.0.1'
+
+    compile 'com.github.kevinsawicki:http-request:5.6'
+    compile 'com.github.xiprox.errorview:library:1.0.0'
+}

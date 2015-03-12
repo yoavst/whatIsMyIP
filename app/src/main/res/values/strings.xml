@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">What is my IP</string>
+    <string name="your_ip_address_is">Your IP address is:</string>
+    <string name="no_connection">No internet connection</string>
+    <string name="no_connection_subtitle">Please check your internet connection and try again</string>
+    <string name="refresh">Refresh</string>
+    <string name="connection_type">Connection type:</string>
+    <string name="wifi">Wi-Fi</string>
+    <string name="mobile">Mobile data</string>
+    <string name="bluetooth">Bluetooth</string>
+    <string name="ethernet">Ethernet</string>
+    <string name="wimax">Wi-Max</string>
+    <string name="more_info">More info</string>
+    <string name="internal_ip">Internal IP:</string>
+    <string name="dns_address">DNS address:</string>
+    <string name="gateway_address">Gateway address:</string>
+    <string name="hostname">Hostname:</string>
+    <string name="about">About app</string>
+</resources>
