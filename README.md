@@ -3,6 +3,11 @@
 "What is my IP" is an Android application that intends to shown you your internal & external IP.
 It uses [ipify.org](http://ipify.org) to get external IP address.
 
+<a href="https://play.google.com/store/apps/details?id=com.yoavst.whatismyip">
+  <img alt="Get it on Google Play"
+       src="https://developer.android.com/images/brand/en_generic_rgb_wo_45.png" />
+</a>
+
 ![app icon](http://i.imgur.com/Vcdp3Jkl.png)
 
 License
