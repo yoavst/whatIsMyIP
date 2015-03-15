@@ -6,7 +6,6 @@ import butterknife.bindView
 import android.os.Bundle
 import android.widget.TextView
 import android.net.wifi.WifiManager
-import com.yoavst.kotlin.wifiManager
 import kotlin.properties.Delegates
 import com.yoavst.kotlin.async
 import com.yoavst.kotlin.mainThread
@@ -23,6 +22,9 @@ import android.view.Menu
 import android.view.MenuInflater
 import com.yoavst.kotlin.broadcastReceiver
 import android.content.IntentFilter
+import android.view.MenuItem
+import android.app.AlertDialog
+import com.yoavst.kotlin.beforeLollipop
 
 /**
  * Created by yoavst.
@@ -40,7 +42,6 @@ public class MainActivity : ActionBarActivity() {
     val gateway: ItemView by bindView(R.id.gateway)
     val dns: ItemView by bindView(R.id.dns)
     val connectivityChangeReceiver = broadcastReceiver { (context, intent) -> update() }
-    val wifiManager: WifiManager by Delegates.lazy { wifiManager() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,6 +54,15 @@ public class MainActivity : ActionBarActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         MenuInflater(this).inflate(R.menu.main, menu)
         return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if (item?.getItemId() == R.id.action_about) {
+            val builder = if (beforeLollipop()) AlertDialog.Builder(this) else AlertDialog.Builder(this, AlertDialog.THEME_DEVICE_DEFAULT_LIGHT)
+            builder.setTitle(R.string.about).setMessage(R.string.about_text).show()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onResume() {

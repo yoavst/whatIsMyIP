@@ -16,4 +16,6 @@
     <string name="gateway_address">Gateway address:</string>
     <string name="hostname">Hostname:</string>
     <string name="about">About app</string>
+    <string name="about_text">" What is my IP" is an Android application that intends to shown you your internal &amp; external IP.\nIt uses ipify.org to get external IP address.\nSource is available on github https://github.com/yoavst/whatIsMyIP\nThe application was built by Yoav Sternberg, Which is also the developer of Quick Circle Apps, the top application for LG\'s Quick Circle case with more than 200,000 downloads.
+    </string>
 </resources>
