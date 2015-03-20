@@ -1,47 +1,20 @@
 package com.yoavst.whatismyip
 
-import android.support.v7.app.ActionBarActivity
-import android.support.v7.widget.Toolbar
-import butterknife.bindView
-import android.os.Bundle
-import android.widget.TextView
-import android.net.wifi.WifiManager
-import kotlin.properties.Delegates
-import com.yoavst.kotlin.async
-import com.yoavst.kotlin.mainThread
-import android.widget.ProgressBar
-import android.widget.ImageButton
-import com.yoavst.kotlin.show
-import com.yoavst.kotlin.hide
-import tr.xip.errorview.ErrorView
-import android.widget.LinearLayout
+import android.app.AlertDialog
+import android.content.IntentFilter
 import android.net.ConnectivityManager
-import java.net.InetAddress
-import com.yoavst.kotlin.connectivityManager
+import android.os.Bundle
+import android.support.v7.app.ActionBarActivity
 import android.view.Menu
 import android.view.MenuInflater
-import com.yoavst.kotlin.broadcastReceiver
-import android.content.IntentFilter
 import android.view.MenuItem
-import android.app.AlertDialog
-import com.yoavst.kotlin.beforeLollipop
-
+import com.yoavst.kotlin.*
+import kotlinx.android.synthetic.activity_main.*
 /**
  * Created by yoavst.
  */
 public class MainActivity : ActionBarActivity() {
-    val toolbar: Toolbar by bindView(R.id.toolbar)
-    val externalIp: TextView by bindView(R.id.external_ip)
-    val progress: ProgressBar by bindView(R.id.progress)
-    val refresh: ImageButton by bindView(R.id.refresh)
-    val error: ErrorView by bindView(R.id.error)
-    val data: LinearLayout by bindView(R.id.data_layout)
-    val connectionType: ItemView by bindView(R.id.connection_type)
-    val internalIp: ItemView by bindView(R.id.local_ip)
-    val hostname: ItemView by bindView(R.id.host_name)
-    val gateway: ItemView by bindView(R.id.gateway)
-    val dns: ItemView by bindView(R.id.dns)
-    val connectivityChangeReceiver = broadcastReceiver { (context, intent) -> update() }
+    val connectivityChangeReceiver = broadcastReceiver { context, intent -> update() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,11 +48,13 @@ public class MainActivity : ActionBarActivity() {
         unregisterReceiver(connectivityChangeReceiver)
     }
 
+    /**
+     * Update info and screen
+     */
     fun update() {
         if (Network.isConnected(this)) {
             progress.show()
             error.hide()
-            data.show()
             async {
                 try {
                     val externalIpAddress = Network.getExternalIpAddress()
@@ -89,8 +64,9 @@ public class MainActivity : ActionBarActivity() {
                             externalIp.setText(externalIpAddress)
                             connectionType.setData(getString(R.string.connection_type), connectionType(Network.getConnectionType(this)))
                             internalIp.setData(getString(R.string.internal_ip), Network.getLocalIpAddress())
-                            hostname.setData(getString(R.string.hostname), hostnameData)
+                            hostName.setData(getString(R.string.hostname), hostnameData)
                             dns.setData(getString(R.string.dns_address), Network.getDnsAddress(getString(android.R.string.unknownName)))
+                            data.show()
                             progress.hide()
                         } catch (e: Exception) {
                             e.printStackTrace()
@@ -106,6 +82,11 @@ public class MainActivity : ActionBarActivity() {
         } else showNoConnection()
     }
 
+    /**
+     * Convert connection type to text
+     * @param type A connection type
+     * @return Readable connection type
+     */
     fun connectionType(type: Int): String {
         return when (type) {
             ConnectivityManager.TYPE_MOBILE -> getString(R.string.mobile)
@@ -117,6 +98,10 @@ public class MainActivity : ActionBarActivity() {
         }
     }
 
+    /**
+     * Shows no connection screen.
+     * It make the error layout visible, and clean the titles and progress bar.
+     */
     fun showNoConnection() {
         error.show()
         data.hide()

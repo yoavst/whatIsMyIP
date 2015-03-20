@@ -32,7 +32,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/external_ip"
+                android:id="@+id/externalIp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/white"
@@ -66,7 +66,7 @@
                 errorview:ev_showTitle="true" />
 
             <LinearLayout
-                android:id="@+id/data_layout"
+                android:id="@+id/data"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -80,19 +80,19 @@
                     android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
                 <com.yoavst.whatismyip.ItemView
-                    android:id="@+id/connection_type"
+                    android:id="@+id/connectionType"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="25dp" />
 
                 <com.yoavst.whatismyip.ItemView
-                    android:id="@+id/local_ip"
+                    android:id="@+id/internalIp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp" />
 
                 <com.yoavst.whatismyip.ItemView
-                    android:id="@+id/host_name"
+                    android:id="@+id/hostName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp" />

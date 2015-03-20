@@ -31,9 +31,19 @@ dependencies {
 
     compile "org.jetbrains.kotlin:kotlin-android-sdk-annotations:$kotlin_version"
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    compile 'com.jakewharton:kotterknife:0.1.0-SNAPSHOT'
-    compile 'com.github.yoavst:androidKotlin:v1.0.2'
+    compile 'com.github.yoavst:androidKotlin:v1.0.3'
 
     compile 'com.github.kevinsawicki:http-request:5.6'
     compile 'com.github.xiprox.errorview:library:1.0.0'
+}
+
+buildscript {
+    ext.kotlin_version = '0.11.91'
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
+    }
 }
