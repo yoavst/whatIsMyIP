@@ -15,11 +15,13 @@ import kotlinx.android.synthetic.activity_main.*
  */
 public class MainActivity : ActionBarActivity() {
     val connectivityChangeReceiver = broadcastReceiver { context, intent -> update() }
+    val connectivity: ConnectivityManager by systemService()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
+        e(connectivity.getActiveNetworkInfo().getTypeName())
         refresh.setOnClickListener { update() }
         update()
     }

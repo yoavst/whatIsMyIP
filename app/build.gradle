@@ -31,14 +31,14 @@ dependencies {
 
     compile "org.jetbrains.kotlin:kotlin-android-sdk-annotations:$kotlin_version"
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    compile 'com.github.yoavst:androidKotlin:v1.0.3'
+    compile 'com.github.yoavst:androidKotlin:1.0.5'
 
     compile 'com.github.kevinsawicki:http-request:5.6'
     compile 'com.github.xiprox.errorview:library:1.0.0'
 }
 
 buildscript {
-    ext.kotlin_version = '0.11.91'
+    ext.kotlin_version = '0.11.91.1'
     repositories {
         mavenCentral()
     }
