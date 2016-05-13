@@ -1,15 +1,16 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 apply from: 'https://gist.githubusercontent.com/stefanhoth/37f86c8e41d648cbd2c8/raw/49ca13d028885cae89f7da949f11069365aefeec/idea-gradle-sources.gradle'
 
 android {
-    compileSdkVersion 22
-    buildToolsVersion "22.0.0"
+    compileSdkVersion 23
+    buildToolsVersion "23.0.3"
 
     defaultConfig {
         applicationId "com.yoavst.whatismyip"
         minSdkVersion 10
-        targetSdkVersion 22
+        targetSdkVersion 23
         versionCode 2
         versionName "1.1"
     }
@@ -26,19 +27,29 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:22.0.0'
-    compile 'com.android.support:cardview-v7:22.0.0'
+    compile 'com.android.support:appcompat-v7:23.4.0'
+    compile 'com.android.support:cardview-v7:23.4.0'
 
-    compile "org.jetbrains.kotlin:kotlin-android-sdk-annotations:$kotlin_version"
+    compile "org.jetbrains.kotlin:kotlin-android-sdk-annotations:$kotlin_sdk_annotation_version"
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    compile 'com.github.yoavst:androidKotlin:1.0.5'
 
     compile 'com.github.kevinsawicki:http-request:5.6'
-    compile 'com.github.xiprox.errorview:library:1.0.0'
+    compile 'com.github.xiprox.errorview:library:2.+'
+
+    // ANKO (KOTLIN - ANDROID)
+    compile "org.jetbrains.anko:anko-sdk15:$anko_version"
+    compile "org.jetbrains.anko:anko-common:$anko_version"
+    compile "org.jetbrains.anko:anko-sqlite:$anko_version"
+    compile "org.jetbrains.anko:anko-support-v4:$anko_version"
+    compile "org.jetbrains.anko:anko-appcompat-v7:$anko_version"
+    compile "org.jetbrains.anko:anko-recyclerview-v7:$anko_version"
+    compile "org.jetbrains.anko:anko-design:$anko_version"
 }
 
 buildscript {
-    ext.kotlin_version = '0.11.91.1'
+    ext.kotlin_version = '1.0.1-2'
+    ext.kotlin_sdk_annotation_version = '1.0.0'
+    ext.anko_version = '0.8.3'
     repositories {
         mavenCentral()
     }

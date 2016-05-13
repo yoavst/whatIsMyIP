@@ -1,29 +1,43 @@
 package com.yoavst.whatismyip
 
-import android.app.AlertDialog
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
 import android.content.IntentFilter
 import android.net.ConnectivityManager
 import android.os.Bundle
-import android.support.v7.app.ActionBarActivity
+import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import com.yoavst.kotlin.*
-import kotlinx.android.synthetic.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.*
+import org.jetbrains.anko.alert
+import org.jetbrains.anko.async
+import org.jetbrains.anko.ctx
+import org.jetbrains.anko.uiThread
+
 /**
  * Created by yoavst.
  */
-public class MainActivity : ActionBarActivity() {
+class MainActivity : AppCompatActivity() {
     val connectivityChangeReceiver = broadcastReceiver { context, intent -> update() }
-    val connectivity: ConnectivityManager by systemService()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
-        e(connectivity.getActiveNetworkInfo().getTypeName())
+//        connectivityManager.activeNetworkInfo.typeName
+//        e(connectivity.getActiveNetworkInfo().getTypeName())
         refresh.setOnClickListener { update() }
         update()
+    }
+
+    fun broadcastReceiver(init: (Context, Intent?) -> Unit): BroadcastReceiver {
+        return object : BroadcastReceiver() {
+            override fun onReceive(context: Context, intent: Intent?) {
+                init(context, intent)
+            }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -32,9 +46,8 @@ public class MainActivity : ActionBarActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        if (item?.getItemId() == R.id.action_about) {
-            val builder = if (beforeLollipop()) AlertDialog.Builder(this) else AlertDialog.Builder(this, AlertDialog.THEME_DEVICE_DEFAULT_LIGHT)
-            builder.setTitle(R.string.about).setMessage(R.string.about_text).show()
+        if (item?.itemId == R.id.action_about) {
+            alert(R.string.about_text, R.string.about).show()
             return true
         }
         return super.onOptionsItemSelected(item)
@@ -57,14 +70,14 @@ public class MainActivity : ActionBarActivity() {
         if (Network.isConnected(this)) {
             progress.show()
             error.hide()
-            async {
+            async() {
                 try {
                     val externalIpAddress = Network.getExternalIpAddress()
                     val hostnameData = Network.getHostName(getString(android.R.string.unknownName))
-                    mainThread {
+                    uiThread {
                         try {
-                            externalIp.setText(externalIpAddress)
-                            connectionType.setData(getString(R.string.connection_type), connectionType(Network.getConnectionType(this)))
+                            externalIp.text = externalIpAddress
+                            connectionType.setData(getString(R.string.connection_type), connectionType(Network.getConnectionType(ctx)))
                             internalIp.setData(getString(R.string.internal_ip), Network.getLocalIpAddress())
                             hostName.setData(getString(R.string.hostname), hostnameData)
                             dns.setData(getString(R.string.dns_address), Network.getDnsAddress(getString(android.R.string.unknownName)))
@@ -107,9 +120,8 @@ public class MainActivity : ActionBarActivity() {
     fun showNoConnection() {
         error.show()
         data.hide()
-        externalIp.setText("")
+        externalIp.text = ""
         progress.hide()
-
     }
 
 }
