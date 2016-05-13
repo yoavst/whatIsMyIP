@@ -8,13 +8,9 @@ import android.net.ConnectivityManager
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
-import android.view.MenuInflater
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main.*
-import org.jetbrains.anko.alert
-import org.jetbrains.anko.async
-import org.jetbrains.anko.ctx
-import org.jetbrains.anko.uiThread
+import org.jetbrains.anko.*
 
 /**
  * Created by yoavst.
@@ -116,10 +112,12 @@ class MainActivity : AppCompatActivity() {
      * It make the error layout visible, and clean the titles and progress bar.
      */
     fun showNoConnection() {
-        error.show()
-        data.hide()
-        externalIp.text = ""
-        progress.hide()
+        onUiThread {
+            error.show()
+            data.hide()
+            externalIp.text = ""
+            progress.hide()
+        }
     }
 
 }
