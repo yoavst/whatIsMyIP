@@ -23,10 +23,10 @@ object Network {
             val en = NetworkInterface.getNetworkInterfaces()
             while (en.hasMoreElements()) {
                 val intf = en.nextElement()
-                val enumIpAddr = intf.getInetAddresses()
+                val enumIpAddr = intf.inetAddresses
                 while (enumIpAddr.hasMoreElements()) {
                     val inetAddress = enumIpAddr.nextElement()
-                    if (!inetAddress.isLoopbackAddress() && inetAddress is Inet4Address) {
+                    if (!inetAddress.isLoopbackAddress && inetAddress is Inet4Address) {
                         return inetAddress.getHostAddress()
                     }
                 }
@@ -67,7 +67,7 @@ object Network {
      */
     fun isConnected(context: Context): Boolean {
         val connectivityManager = context.connectivityManager
-        val activeNetworkInfo = connectivityManager.getActiveNetworkInfo()
+        val activeNetworkInfo = connectivityManager.activeNetworkInfo
         return activeNetworkInfo != null && activeNetworkInfo.isConnected()
     }
 

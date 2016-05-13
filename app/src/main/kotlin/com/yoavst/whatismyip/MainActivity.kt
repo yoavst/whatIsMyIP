@@ -26,8 +26,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
-//        connectivityManager.activeNetworkInfo.typeName
-//        e(connectivity.getActiveNetworkInfo().getTypeName())
         refresh.setOnClickListener { update() }
         update()
     }
@@ -41,7 +39,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        MenuInflater(this).inflate(R.menu.main, menu)
+        menuInflater.inflate(R.menu.main, menu)
         return true
     }
 
