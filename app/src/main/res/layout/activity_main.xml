@@ -60,8 +60,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:visibility="gone"
-                errorview:ev_errorSubtitle="@string/no_connection_subtitle"
-                errorview:ev_errorTitle="@string/no_connection"
+                errorview:ev_subtitle="@string/no_connection_subtitle"
+                errorview:ev_title="@string/no_connection"
                 errorview:ev_showRetryButton="false"
                 errorview:ev_showTitle="true" />
 
